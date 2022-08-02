@@ -1,32 +1,38 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block title %}Каталог{% endblock %}
-
 {% block content %}
-  <div class="container">
-    <div class="header">
-      <h1>Каталог</h1>
-    </div>
-
-    <div class="sort-block">
-      <span class="sort-item">Сортировать по:</span>
-      <a class="sort-item" href="?sort=name">названию</a>
-      <a class="sort-item" href="?sort=min_price">начиная с дешёвых</a>
-      <a class="sort-item" href="?sort=max_price">начиная с дорогих</a>
-    </div>
-
-    <div class="content">
-      {% for phone in phones %}
-        <div class="phone">
-          <a href="{% url 'phone' phone.slug %}">
-            <h3>{{ phone.name }}</h3>
-          </a>
-          <div class="price">Стоимость: {{ phone.price }} ₽</div>
-          <img height="400" src="{{ phone.image }}" alt="{{ phone.name }}"/>
+    <div class="container">
+        <div class="header">
+            <h1 class="text-primary"><center>Каталог</center></h1>
         </div>
-      {% endfor %}
+
+        <div class="sort-block">
+            {# Здесь должен быть раздел с сортировкой #}
+            <h6>
+                <div  class="row">
+            <div><strong>Сортировать по:</strong></div>
+                    <div class="pl-3"><a href="/catalog?sort=name">названию</a></div>
+                    <div class="pl-3"><a href="/catalog?sort=price">начиная с дешевых</a></div>
+                    <div class="pl-3"><a href="/catalog?sort=-price">начиная с дорогих</a></div>
+                </div>
+            </h6>
+        </div>
+
+        <div class="content">
+            {# Здесь должен отображаться каталог с телефонами #}
+            <div class="row">
+                {% for phone in phones %}
+                    <div class="col-6">
+                        <center>
+                        <h2><a href="/catalog/{{ phone.slug }}">{{ phone.name }}</a></h2>
+                        <h6>Стоимость: {{ phone.price }} руб.</h6>
+                        <img src="{{ phone.image }}"  alt="{{ phone.name }}" height="200">
+                        </center>>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
 {% endblock %}
